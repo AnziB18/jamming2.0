@@ -21,6 +21,15 @@ class App extends React.Component {
                           ]
                   }
   }
+  addTrack(track){
+    let checkID = this.state.playlistTracks;
+    if(checkID.find(checkedID => checkedID.id === track.id)){
+      return;
+    } else {
+      checkID.push(track);
+      this.setState({playlistTracks: checkID})
+    }
+  }
   render(){
     return (
       <div>
