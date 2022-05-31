@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import SearchBar from '../SearchBar/SearchBar';
+import SearchResults from '../SearchResults/SearchResults';
+import Playlist from '../Playlist/Playlist';
 //import { render } from '@testing-library/react';
 
 class App extends React.Component {
