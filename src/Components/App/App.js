@@ -33,7 +33,8 @@ class App extends React.Component {
     }
   }
   removeTrack(track){
-    const newPLaylist = this.state.playlistTracks.filter(checkedID => checkedID !== track.id)
+    const newPLaylist = this.state.playlistTracks.filter(checkedID =>  track.id !== checkedID)
+    newPLaylist.pop(track);
     this.setState({playlistTracks: newPLaylist});
   }
   render(){
