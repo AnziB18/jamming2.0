@@ -11,6 +11,8 @@ class TrackList extends React.Component {
                         album={track.album} 
                         artist = {track.artist}
                         onAdd = {this.props.onAdd}
+                        onRemove = {this.props.onRemove}
+                        isRemoval = {this.props.isRemoval}
                         />
                 )}
                 {/* <!-- You will add a map method that renders a set of Track components  --> */}
