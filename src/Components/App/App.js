@@ -24,8 +24,8 @@ class App extends React.Component {
     this.removeTrack = this.removeTrack.bind(this);
   }
   addTrack(track){
-    let checkID = this.state.playlistTracks;
-    if(checkID.find(checkedID => checkedID.id === track.id)){
+    const checkID = this.state.playlistTracks;
+    if(this.state.playlistTracks.find(checkedID => checkedID.id === track.id)){
       return;
     } else {
       checkID.push(track);
@@ -33,8 +33,7 @@ class App extends React.Component {
     }
   }
   removeTrack(track){
-    let checkID = this.state.playlistTracks;
-    const newPLaylist = checkID.filter((checkedID) => checkedID !== track.id)
+    const newPLaylist = this.state.playlistTracks.filter(checkedID => checkedID !== track.id)
     this.setState({playlistTracks: newPLaylist});
   }
   render(){
