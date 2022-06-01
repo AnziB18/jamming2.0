@@ -21,6 +21,7 @@ class App extends React.Component {
                           ]
                   }
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
   addTrack(track){
     let checkID = this.state.playlistTracks;
@@ -31,6 +32,11 @@ class App extends React.Component {
       this.setState({playlistTracks: checkID})
     }
   }
+  removeTrack(track){
+    let checkID = this.state.playlistTracks;
+    const newPLaylist = checkID.filter((checkedID) => checkedID !== track.id)
+    this.setState({playlistTracks: newPLaylist});
+  }
   render(){
     return (
       <div>
@@ -38,8 +44,13 @@ class App extends React.Component {
         <div className="App">
           {/* Add a SearchBar component */}
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
-            <Playlist playlistName = {this.state.playlistName} playlistTracks = {this.state.playlistTracks}/>
+            <SearchResults  searchResults={this.state.searchResults} 
+                            onAdd={this.addTrack}
+                            />
+            <Playlist playlistName = {this.state.playlistName} 
+                      playlistTracks = {this.state.playlistTracks}
+                      onRemove = {this.removeTrack}
+                      />
           </div>
         </div>
       </div>
