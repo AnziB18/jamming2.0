@@ -36,8 +36,7 @@ class App extends React.Component {
     }
   }
   removeTrack(track){
-    const newPLaylist = this.state.playlistTracks.filter(checkedID =>  track.id !== checkedID)
-    newPLaylist.pop(track);
+    const newPLaylist = this.state.playlistTracks.filter(checkedID =>  { return track.id !== checkedID.id})
     this.setState({playlistTracks: newPLaylist});
   }
   updatePlaylistName(name){
