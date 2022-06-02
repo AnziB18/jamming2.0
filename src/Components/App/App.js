@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 //import { render } from '@testing-library/react';
 
 class App extends React.Component {
@@ -46,7 +47,9 @@ class App extends React.Component {
     const trackURIs = this.state.playlistTracks.id
   }
   search(term){
-    console.log(term);
+    Spotify.search(term).then(searchResults => { // have to chain the promise from Spotify module
+      this.setState({searchResults: searchResults})
+      })
   }
   render(){
     return (
