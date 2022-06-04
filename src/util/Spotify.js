@@ -33,7 +33,7 @@ const Spotify ={
     },
     async search(term){
         const accessToken = Spotify.getAccessToken();
-        const headers = {Authorization: `Bearer ${accessToken}`};
+        const headers = {Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json'};
         let searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term}`
         try{
             const response = await fetch(searchUrl,{headers: headers});  
@@ -47,6 +47,68 @@ const Spotify ={
                 }
             }
             throw new Error('Request failed');
+        } catch(error){
+            console.log(error);
+        }
+    },
+    async savePlaylist(playlistName, trackURIs){
+        const accessToken = Spotify.getAccessToken();
+        const headers = {Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json'};
+        const saveUserIdUrl = `https://api.spotify.com/v1/me`;
+        let user_id;
+        let playlist_id;    
+        const createPlaylistUrl = `https://api.spotify.com/v1/users/${user_id}/${playlistName}`;
+        const addPlaylistUrl = `https://api.spotify.com/v1/playlists/${playlist_id}/${trackURIs}`;
+        const data = {
+            "name": "New Playlist",
+            "description": "New playlist description",
+            "public": false
+          };
+        const dataAddPlaylist = {
+            "uris": [
+                "string"
+              ],
+              "position": 0
+        }
+        try{
+            const response = await fetch(saveUserIdUrl, {
+                                headers: headers
+                              });
+            if(response.ok){
+                const jsonResponse = await response.json()
+                if(jsonResponse["display_name"] === null){
+                    return console.log('no display name available')
+                } else {
+                    return user_id = jsonResponse.id
+                }
+            } throw new Error('Request failed');
+        } catch(error) {
+            console.log(error);
+        }
+
+        try{
+            const response = await fetch(createPlaylistUrl, {
+                                method: 'POST',
+                                body: data,
+                                headers: headers
+                                })
+            if(response.ok){
+                const jsonResponse = await response.json();
+                return playlist_id = jsonResponse;
+            }
+        } catch(error){
+            console.log(error);
+        }
+        try{
+            const response = await fetch(addPlaylistUrl, {
+                                method: 'POST',
+                                body: dataAddPlaylist,
+                                headers: headers
+                                })
+            if(response.ok){
+                const jsonResponse = await response.json();
+                return jsonResponse;
+            }
         } catch(error){
             console.log(error);
         }
